@@ -1,0 +1,41 @@
+for FILENAME in *; do FILENAME1=${FILENAME/'.mp4'}; echo $FILENAME1; mv $FILENAME $FILENAME1; done - removes .mp4 from all filename
+
+
+for FILENAME in *; do FILENAME1=${FILENAME#*_}; mv $FILENAME $FILENAME1; done - remove until _ in bash
+
+while read line; do (ffmpeg -i ../all_audio_original/$line 2>&1 | grep "Duration" | cut -d ' ' -f 4 | sed 's/,//') ; done < youtube_top_50.list
+
+python compute_melspectrograms.py --input_file_list audio/lists/all_audio_original_file_temp.list --audiopath audio/all_audio_original/ --outputpath features/melspectrogram/original/all_audio_original --list_root ../../lists/melspectrogram/
+
+find . -type f -exec bash -c 'basename "${0%.*}"' {} \; > ../temp_files
+
+while read line; do a=$(ffprobe -i ../all_audio_original/$line -show_format -v quiet | sed -n 's/duration=//p') ; sum=`echo $a + $sum | bc` ; echo $sum ; done < youtube_top_50.list
+
+command for inserting a column in a tab delimited file
+ awk 'BEGIN { FS = OFS = "\t" } { $1 = $1 FS "youtube"; print $0 }' youtube_fold1_evaluate.txt
+
+swap columns
+ awk 'BEGIN{FS=OFS=","}{$0=$2 FS $2 FS $1}1' training_files_audio_mapped
+
+for f in *.mp4;do ffmpeg -i "$f" "${f%mp4}wav";done
+
+#### Replace space with underscores.
+for file in */*; do echo $file; mv "$file" $(echo $file | sed 's/ /_/g'); done
+
+Get data statistics
+cat all_new_audio_mapped_list | awk -F',' '{print $NF}' | sort | uniq -c
+
+cat all_new_audio_mapped_list | awk -F',' '{print $NF}' | sort | uniq -c | perl -ane 'print "$F[1],$F[0]\n"'
+
+awk -F',' '$2==1 {print $1}' all_new_audio_mapped_list_no_silencer 
+print the value if it is true
+
+awk -F',' '$2==1 {print $1}' all_new_audio_mapped_list_no_silencer | xargs -I {} grep -w {} ../../../data/audio_duration.list > ../../../data/audio_duration_1.list - get the xargs thingy
+
+ awk -F',' '$NF==2 {OFS=",";NF--;print $0;}' all_new_audio_mapped_list_no_silencer | xargs -I {} grep -w -- {} ../../../data/audio_duration.list > ../../../data/audio_duration_2.list
+
+awk 'BEGIN {FS=" "};{sum+=$NF} END {print sum}' audio_duration_0.list 
+
+https://www.linkedin.com/pulse/use-command-nvidia-graphics-card-more-efficiently-ankit-shah/
+
+awk -F' ' '{print substr($1,1,length($1)-14)}' 40_youtube_top_50_npy_size_40_classes.list > audio_files_top_40.list
